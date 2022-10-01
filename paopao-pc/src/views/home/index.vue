@@ -1,6 +1,9 @@
 <template>
 <div>
     <img class="bigimg" src="@/assets/img/首页大图.webp" alt="">
+    <h1 class="ui inverted header">
+        Welcome to the running assistant
+    </h1>
     <div class="hour">
         <img src="@/assets/img/hour.png" alt="">
         <div class="flex">
@@ -10,12 +13,18 @@
             立即下单
             </router-link>
         </button>
-        <button class="ui inverted orange button"  >
-            <router-link to="/putorder">
-            <i class="plus icon"></i>
-            立即接单
-            </router-link>
-        </button>
+        <el-popover
+            placement="top-start"
+            title="下载app立即接单赚钱！"
+            width="200"
+            trigger="hover"
+            content="">
+            <img class="wximg" src="@/assets/img/联系方式.jpg" alt="">
+            <button slot="reference" class="ui inverted orange button">
+                <i class="android icon"></i>
+                立即接单
+            </button>
+        </el-popover>
         <el-popover
             placement="top-start"
             title="微信扫一扫进入小程序"
@@ -27,7 +36,7 @@
                 <i class="wechat icon"></i>
                 小程序下单有惊喜
             </button>
-    </el-popover>
+        </el-popover>
     </div>
     </div>
     <div class="ui segment">
@@ -61,7 +70,7 @@ methods:{
 }
 .hour{
     position: absolute;
-    top: 200px;
+    top: 300px;
     left: 150px;
     display: flex;
     flex-direction: column;
@@ -88,5 +97,12 @@ a{
     position: absolute;
     top:750px ;
     left: 150px;
+}
+.ui.inverted.header{
+    font-size: 70px;
+    position: absolute;
+    top: 130px;
+    left: 250px;
+    color: #000;
 }
 </style>
