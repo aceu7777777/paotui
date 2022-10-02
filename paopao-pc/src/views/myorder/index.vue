@@ -2,10 +2,12 @@
 <div>
 <!-- table -->
 <div class="pad"> 
+    <router-link to="/putorder">
     <div class="ui top attached button orange" tabindex="0">
-        <span style="    padding-right: 26px;">新建订单</span>
-        <i class="plus icon"></i>
+            <span style="    padding-right: 26px;">新建订单</span>
+            <i class="plus icon"></i>
     </div>
+    </router-link>
     <div class="tableflex">
         <table class="ui celled padded table">
         <thead>

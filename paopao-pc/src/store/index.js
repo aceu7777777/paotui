@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     //用户的token
-    token:'',
+    //token:'',
   },
   mutations: {},
   actions: {},

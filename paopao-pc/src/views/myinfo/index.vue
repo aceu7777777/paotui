@@ -18,10 +18,7 @@
     </div>
     <div class="item">
     <a href="javascript:;">
-        <p>会员中心</p>
-    </a>
-    <a href="javascript:;">
-        <p>安全设置</p>
+        <p>查看我的</p>
     </a>
     </div>
 </div>
@@ -65,6 +62,7 @@
                 <td>代拿快递</td>
                 <td>快递是小件在主校区菜鸟驿站 取件码为B-1-2 名字小明</td>
                 </tr>
+                
             </tbody>
             </table>
         </div>
@@ -83,6 +81,11 @@
                 <td>000101</td>
                 <td>快递是小件在主校区菜鸟驿站 取件码为B-1-2 名字小明</td>
                 <td>2元</td>
+                </tr>
+                <tr>
+                <td>000112</td>
+                <td>快递是小件在主校区菜鸟驿站 取件码为B-1-2 名字小明</td>
+                <td>3元</td>
                 </tr>
                 <tr>
                 <td>000112</td>
@@ -111,7 +114,7 @@ data() {
 
 <style lang="less" scoped>
 .my{
-    padding-top: 30px;
+    padding-top: 10px;
     display: flex;
     justify-content: center;
 }
@@ -175,7 +178,7 @@ display: flex;
     }
 }
 .tabs{
-    padding-top: 30px;
+    padding-top: 20px;
     display: flex;
     justify-content: center;
 }

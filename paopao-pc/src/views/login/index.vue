@@ -12,11 +12,11 @@
             label-width="100px"
             class="demo-ruleForm"
           >
-            <el-form-item label="电话" prop="phone">
-              <el-input v-model="ruleForm.phone" type="phone"></el-input>
+            <el-form-item label="电话" prop="userID">
+              <el-input v-model="ruleForm.userID" type="userID"></el-input>
             </el-form-item>
-            <el-form-item label="密码" prop="pass">
-              <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+            <el-form-item label="密码" prop="userPsd">
+              <el-input type="password" v-model="ruleForm.userPsd" autocomplete="off"></el-input>
               </el-form-item>
             <el-form-item class="btn">
               <el-button
@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { LoginAPI } from "@/api/login"
 export default {
   name: "login",
   data() {
@@ -68,23 +69,26 @@ export default {
       }
     };
     return {
+      //数据
       ruleForm: {
-        phone:"",
-        pass: "",
-        primary:"",
+        userID:"",
+        userPsd: "",
       },
+
       rules: {
-       phone:[{validator:Phone,trigger:"blur"}],
-       pass: [{ validator: validatePass, trigger: "blur" }],
+        userID:[{validator:Phone,trigger:"blur"}],
+        userPsd: [{ validator: validatePass, trigger: "blur" }],
       },
     };
   },
+
   methods: {
     //点击登录
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+    async submitForm(formName) {
+      this.$refs[formName].validate( async (valid) => {
         if (valid) {
-          alert("submit!");
+          const res = await LoginAPI(this.ruleForm)
+          console.log(res);
         } else {
           console.log("error submit!!");
           return false;
