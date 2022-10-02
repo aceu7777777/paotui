@@ -2,6 +2,7 @@
   <div>
     <img class="bigimg" src="@/assets/img/bg.jpg" alt="">
     <div class="box">
+      <el-button size="mini" round @click="gohome"><i class="el-icon-s-home" ></i> 返回首页</el-button>
       <div class="box1">
         <h1>欢迎登录</h1>
         <div class="box3">
@@ -40,7 +41,7 @@
           >
             <el-button slot="reference">二维码登录</el-button>
           </el-popover> -->
-        </div> -->
+        </div> 
       </div>
     </div>
   </div>
@@ -80,11 +81,16 @@ export default {
     };
   },
   methods: {
+    //返回首页
+    gohome(){
+      this.$router.push("/home");
+    },
     //点击登录
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          //检验成功
+          this.$store.dispatch('Login');
         } else {
           console.log("error submit!!");
           return false;
@@ -128,7 +134,7 @@ h1 {
   font-weight: 400;
 }
 .box3 {
-  margin: 35px 2px;
+  margin: 35px -13px;
   width: 353px;
   height: 175px;
   // background-color: aquamarine;
@@ -139,6 +145,6 @@ h1 {
 }
 .jianju {
   margin-left: 10px;
-  margin-right: 60px;
+  margin-right: 67px;
 }
 </style>
