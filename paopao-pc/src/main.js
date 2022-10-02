@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import { Button, Menu, MenuItem,Submenu,Empty,Popover,Form,FormItem,Input,Select
-,Option} from 'element-ui';
+,Option,Pagination,TimePicker,DatePicker,Tabs,TabPane,Table,TableColumn} from 'element-ui';
 //引入elementui样式
 import 'element-ui/lib/theme-chalk/index.css';//引入全部的样式
 Vue.config.productionTip = false;
@@ -20,6 +20,13 @@ Vue.use(FormItem)
 Vue.use(Input)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Pagination)
+Vue.use(TimePicker)
+Vue.use(Tabs)
+Vue.use(DatePicker)
+Vue.use(TabPane)
+Vue.use(Table)
+Vue.use(TableColumn)
 new Vue({
   router,
   store,
