@@ -17,7 +17,7 @@
             <th>订单内容</th>
             <th>操作</th>
         </tr></thead>
-        <tbody>
+        <tbody v-if="islogin">
             <tr>
             <td>
                 <h2 class="ui center aligned header">已接单</h2>
@@ -95,16 +95,17 @@
 
 </div>
 <!-- 数据为空的时候显示 -->
-<el-empty description="暂无订单,快点击上方按钮下单吧！" v-if="!mypickorderList"></el-empty>
+<el-empty description="暂无接单信息！" v-if="!mypickorderList"></el-empty>
+<el-empty description="请先登录！" v-if="!islogin"></el-empty>
 <!-- 分页组件 -->
-<div class="page">
+<!-- <div class="page">
     <el-pagination
     page-size="5"
     background="true"
     layout="prev, pager, next"
     :total="10">
     </el-pagination>
-</div>
+</div> -->
 </div>
 
 </template>
@@ -115,6 +116,12 @@ export default {
     return {
         //订单列表
         mypickorderList:[1],
+    }
+},
+//判断是否登录
+computed:{
+    islogin(){
+        return this.$store.state.islogin
     }
 }
 }

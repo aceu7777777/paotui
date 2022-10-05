@@ -7,7 +7,7 @@
     <el-menu-item index="/myorder">我下的单</el-menu-item>
     <el-menu-item index="/mypickorder">我的任务</el-menu-item>
     <el-menu-item index="/myinfo">个人中心</el-menu-item>
-    <div class="userlogin" v-if="!isLogin">
+    <div class="userlogin" v-if="!islogin">
         <button class="ui orange basic button">
             <router-link to="/login">
             登录
@@ -22,8 +22,11 @@
     <div class="user" v-else>
         <a class="ui image label">
         <img src="@/assets/img/user.png">
-        张帅晗
+        终端练习生
         </a>
+        <button class="ui orange basic button" @click="exit">
+            退出登录
+        </button>
     </div>
     </el-menu>
 </div>
@@ -44,8 +47,32 @@ export default {
     methods: {
     handleSelect(key, keyPath) {
         console.log(key, keyPath);
+    },
+    exit(){
+        this.$confirm('是否退出?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+        }).then(() => {
+            this.$message({
+            type: 'success',
+            message: '退出登录成功!'
+        });
+        this.$router.push({path:"/login"}) 
+        this.$store.state.islogin = false
+        }).catch(() => {
+            this.$message({
+            type: 'info',
+            message: '取消退出登录'
+        });          
+        });
     }
     },
+    computed:{
+    islogin(){
+        return this.$store.state.islogin
+    },
+}
 
 }
 </script>
@@ -55,7 +82,7 @@ export default {
     padding-top: 12px;
 }
 .user{
-    padding-top: 17px;
+    padding-top: 15px;
 }
 a{
     text-decoration: none;

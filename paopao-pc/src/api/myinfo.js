@@ -1,10 +1,7 @@
-import request from '@/utils/request'
-export const MyinfoAPI = (userID) => {
-    return request({
-        url:'/login',
-        method: 'post',
-        data:{
-            userID
-        }  
-    })
-}
+import requests from "./request";
+//查询个人信息
+export const MyinfoAPI = (userID) =>requests({
+        url:`/get-my-account/${userID}`,
+        method: 'get',
+})
+//

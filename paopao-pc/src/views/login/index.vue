@@ -2,6 +2,7 @@
   <div>
     <img class="bigimg" src="@/assets/img/bg.jpg" alt="">
     <div class="box">
+      <el-button size="mini" round @click="gohome"><i class="el-icon-s-home" ></i> 返回首页</el-button>
       <div class="box1">
         <h1>欢迎登录</h1>
         <div class="box3">
@@ -40,14 +41,13 @@
           >
             <el-button slot="reference">二维码登录</el-button>
           </el-popover> -->
-        </div> -->
+        </div> 
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { LoginAPI } from "@/api/login"
 export default {
   name: "login",
   data() {
@@ -55,7 +55,7 @@ export default {
     var Phone = (rule,value,callback)=>{
       let reg = /^[1][3,4,5,6,7,8][0-9]{9}$/
       if(!reg.test(value)){
-       callback(new Error('手机号码错误'))
+        callback(new Error('手机号码错误'))
       }else{
           callback()
       }
@@ -83,12 +83,16 @@ export default {
   },
 
   methods: {
+    //返回首页
+    gohome(){
+      this.$router.push("/home");
+    },
     //点击登录
     async submitForm(formName) {
       this.$refs[formName].validate( async (valid) => {
         if (valid) {
-          const res = await LoginAPI(this.ruleForm)
-          console.log(res);
+          //检验成功
+          this.$store.dispatch('Login', this.ruleForm);
         } else {
           console.log("error submit!!");
           return false;
@@ -132,7 +136,7 @@ h1 {
   font-weight: 400;
 }
 .box3 {
-  margin: 35px 2px;
+  margin: 35px -13px;
   width: 353px;
   height: 175px;
   // background-color: aquamarine;
@@ -143,6 +147,6 @@ h1 {
 }
 .jianju {
   margin-left: 10px;
-  margin-right: 60px;
+  margin-right: 67px;
 }
 </style>

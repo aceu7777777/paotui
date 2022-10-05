@@ -2,7 +2,9 @@
   <div>
     <img class="bigimg" src="@/assets/img/bg.jpg" alt="">
     <div class="box">
-      <div class="box1">
+      <el-button size="mini" round @click="gohome"><i class="el-icon-s-home" ></i> 返回首页</el-button>
+
+      <div class="box1"> 
         <h1>欢迎注册</h1>
         <div class="box3">
           <el-form
@@ -15,12 +17,9 @@
             <el-form-item label="电话" prop="phone">
               <el-input v-model="ruleForm.phone" type="phone"></el-input>
             </el-form-item>
-            <el-form-item label="验证码" prop="verification_code">
+            <!-- <el-form-item label="验证码" prop="verification_code">
               <el-input v-model="ruleForm.verification_code"></el-input>
-            </el-form-item>
-            <el-form-item label="身份证号" prop="idcard">
-              <el-input v-model="ruleForm.idcard"></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="密码" prop="pass">
               <el-input
                 type="password"
@@ -36,7 +35,7 @@
               <el-button
                 type="primary"
                 @click="submitForm('ruleForm')"
-                class="jianju"
+                class="btn"
                 >注册</el-button
               >
               <el-button type="primary" @click="goLogin"
@@ -64,23 +63,14 @@ export default {
       }
     }
     //验证码校验
-    var VerificationCode = (rule,value,callback)=>{
-      let reg = /^\d{4}$/;
-      if(!reg.test(value)){
-       callback(new Error('请输入正确的验证码'))
-      }else{
-          callback()
-      }
-    }
-    //身份证号校验
-     var IdCard = (rule,value,callback)=>{
-      let reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
-        if(!reg.test(value)){
-          callback(new Error('请输入正确的身份证号码'))
-        }else{
-          callback()
-        }
-    }
+    // var VerificationCode = (rule,value,callback)=>{
+    //   let reg = /^\d{4}$/;
+    //   if(!reg.test(value)){
+    //    callback(new Error('请输入正确的验证码'))
+    //   }else{
+    //       callback()
+    //   }
+    // }
     // 密码校验
     var validatePass = (rule, value, callback) => {
       if (value === "") {
@@ -104,21 +94,23 @@ export default {
     return {
       ruleForm: {
         phone:"",
-        verification_code:"",
-        idcard:"",
+        // verification_code:"",
         pass: "",
         checkPass: "",
       },
       rules: {
         phone:[{validator:Phone,trigger:"blur"}],
-        verification_code:[{validator:VerificationCode,trigger:"blur"}],
-        idcard:[{validator:IdCard,trigger:"blur"}],
+        // verification_code:[{validator:VerificationCode,trigger:"blur"}],
         pass: [{ validator: validatePass, trigger: "blur" }],
         checkPass: [{ validator: validatePass2, trigger: "blur" }],
       },
     };
   },
   methods: {
+    //返回首页
+    gohome(){
+      this.$router.push("/home");
+    },
     //跳转登录页面
     goLogin(){
       this.$router.push({path:"/login"})
@@ -126,7 +118,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          this.$store.dispatch('Register',this.ruleForm)
         } else {
           console.log("error submit!!");
           return false;
@@ -161,11 +153,11 @@ export default {
   margin-top: 50px;
 }
 h1 {
-  margin: 10px 154px;
+  margin: 10px 150px;
   font-weight: 400;
 }
 .box3 {
-  margin: 35px 2px;
+  margin: 35px -13px;
   width: 353px;
   height: 100%;
 //   background-color: aquamarine;
@@ -174,8 +166,8 @@ h1 {
   margin-left: 37px;
   background-color: bisque;
 }
-.jianju {
-  margin-left: 10px;
-  margin-right: 60px;
+.btn {
+  margin-left: 15px;
+  margin-right: 66px;
 }
 </style>

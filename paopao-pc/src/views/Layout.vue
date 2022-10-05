@@ -3,7 +3,10 @@
     <!-- 头部导航 -->
     <Nav/>
     <!-- 二级路由 -->
-    <router-view /> 
+    <keep-alive>
+        <router-view /> 
+    </keep-alive>
+
 </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
 <div>
-<div class="my">
-    <!-- 概览 -->
+<div class="my"  v-if="islogin">
+<!-- 概览 -->
 <div class="home-overview">
     <!-- 用户信息 -->
     <div class="user-meta">
@@ -9,28 +9,32 @@
         <img src="@/assets/img/user.png"/>
     </div>
     <div class="student">
+    <div v-if="!realinfo">
     <router-link to="/realinfo">
         未实名,请先去实名
     </router-link>
-    <span>已实名</span>
     </div>
-    <h4>张帅晗</h4>
+    <span v-if="realinfo">已实名</span>
+    </div>
+    <h4>终端练习生</h4>
     </div>
     <div class="item">
     <a href="javascript:;">
-        <p>查看我的</p>
+        <p>会员中心</p>
     </a>
     </div>
 </div>
 </div>
 <!-- tabs -->
-<div  class="tabs">
+<div  class="tabs" v-if="islogin">
 <el-tabs type="card" class="card"> 
     <el-tab-pane label="用户余额" class="el-tab-pane">
         <div class="ui raised very padded text container segment">
             <h2 class="ui header">用户余额</h2>
             <div class="ui divider"></div>
             <p class="usermoney">可用余额: <span class="orange">0元 </span></p>
+            <p class="usermoney">可用积分: <span class="orange">0跑跑币 </span></p>
+            
             <button class="ui orange basic button">
                 <i class="money bill alternate outline icon"></i>
                 去充值
@@ -98,16 +102,39 @@
     </el-tab-pane>
 </el-tabs>
 </div>
+<el-empty description="您还没有登录,请先去登录吧！" v-if="!islogin"></el-empty>
 </div>
 </template>
 
 <script>
+//测试查询个人信息
+import {MyinfoAPI} from '@/api/myinfo.js'
 export default {
 data() {
     return {
-        //判断是否已实名
-    
+        //个人信息
+        myinfo:{},
+
     }
+},
+methods:{
+    async user(){
+        const res = await MyinfoAPI(19990523) 
+        this.myinfo = res.data
+        console.log(this.myinfo);
+    }
+},
+//判断是否登录
+computed:{
+    islogin(){
+        return this.$store.state.islogin
+    },
+    realinfo(){
+        return this.$store.state.realinfo
+    }
+},
+created() {
+    this.user()
 },
 }
 </script>

@@ -4,6 +4,13 @@ import { defineConfig } from "vite";
 export default defineConfig({
 server:{
     hmr:true, //开启热更新
+    proxy: {
+        '/api': {
+            target: 'http://101.43.223.7:8080/',
+            //changeOrigin: true,
+            rewrite: (path) => path.replace(/^\/api/, '')
+        }
+    }
 },
 //plugins: [createVuePlugin()],
 plugins: [
@@ -17,7 +24,7 @@ resolve: {
     {
         find: "@",
         replacement: "/src",
-    },
+    },  
     ],
 },
 build: {

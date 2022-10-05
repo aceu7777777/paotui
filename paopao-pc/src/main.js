@@ -3,12 +3,17 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import { Button, Menu, MenuItem,Submenu,Empty,Popover,Form,FormItem,Input,Select
-,Option,Pagination,TimePicker,DatePicker,Tabs,TabPane,Table,TableColumn} from 'element-ui';
+,Option,Pagination,TimePicker,DatePicker,Tabs,TabPane,Table,TableColumn,Col
+,Message,MessageBox,Dialog} from 'element-ui';
 //引入elementui样式
 import 'element-ui/lib/theme-chalk/index.css';//引入全部的样式
 Vue.config.productionTip = false;
 //引入按钮
-Vue.use(Button)   
+Vue.use(Button)  
+Vue.component(Message) 
+Vue.component(MessageBox) 
+Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox 
 //引入nav航
 Vue.use(Menu)
 Vue.use(MenuItem)
@@ -27,6 +32,8 @@ Vue.use(DatePicker)
 Vue.use(TabPane)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Col)
+Vue.use(Dialog)
 new Vue({
   router,
   store,
