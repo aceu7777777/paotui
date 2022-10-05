@@ -40,11 +40,21 @@ const routes = [
         path:'/myinfo',
         name:'Myinfo',
         component: () => import('@/views/myinfo')
+        
       },
       {
         path:'/realinfo',
         name:'Realinfo',
-        component: () => import('@/views/realinfo')
+        component: () => import('@/views/realinfo'),
+        //认证页面的路由独享守卫
+        beforeEnter: (to,from, next) => {
+          if(from.path =='/myinfo'){
+            next();
+          }else{
+            //next(false)好像有bug白屏
+            next('/home')
+          }
+        }
       },
       {
         path:'/putorder',

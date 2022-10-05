@@ -2,13 +2,14 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import { Button, Menu, MenuItem,Submenu,Empty,Popover,Form,FormItem,Input,Select
-,Option,Pagination,TimePicker,DatePicker,Tabs,TabPane,Table,TableColumn} from 'element-ui';
-//引入elementui样式
+import {
+  Button, Menu, MenuItem, Message, Submenu, Empty, Popover, Form, FormItem, Input, Select
+  , Option, Pagination, TimePicker, DatePicker, Tabs, TabPane, Table, TableColumn
+} from 'element-ui';
+//引入element-ui样式
 import 'element-ui/lib/theme-chalk/index.css';//引入全部的样式
-Vue.config.productionTip = false;
 //引入按钮
-Vue.use(Button)   
+Vue.use(Button)
 //引入nav航
 Vue.use(Menu)
 Vue.use(MenuItem)
@@ -27,6 +28,11 @@ Vue.use(DatePicker)
 Vue.use(TabPane)
 Vue.use(Table)
 Vue.use(TableColumn)
+//在原型方法上挂载elm消息提示
+Vue.prototype.$message = Message;
+Vue.config.productionTip = false;//关闭生产提示
+//引入mockserve.js ---mock的虚拟数据
+import '@/mock/mockServe';
 new Vue({
   router,
   store,
