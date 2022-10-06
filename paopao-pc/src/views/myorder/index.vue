@@ -44,14 +44,14 @@
 <el-form :model="ruleForm">
     <el-form-item label="跑腿金额" prop="orderMoney">
     <el-select v-model="ruleForm.orderMoney" placeholder="请选择金额">
-        <el-option label="3" value="3"></el-option>
-        <el-option label="4" value="4"></el-option>
-        <el-option label="5" value="5"></el-option>
-        <el-option label="6" value="6"></el-option>
-        <el-option label="7" value="7"></el-option>
-        <el-option label="8" value="8"></el-option>
-        <el-option label="9" value="9"></el-option>
-        <el-option label="10" value="10"></el-option>
+        <el-option label="3.0" value="3.0"></el-option>
+        <el-option label="4.0" value="4.0"></el-option>
+        <el-option label="5.0" value="5.0"></el-option>
+        <el-option label="6.0" value="6.0"></el-option>
+        <el-option label="7.0" value="7.0"></el-option>
+        <el-option label="8.0" value="8.0"></el-option>
+        <el-option label="9.0" value="9.0"></el-option>
+        <el-option label="10.0" value="10.0"></el-option>
     </el-select>
     </el-form-item>
     <el-form-item label="详细内容" prop="orderContent">
