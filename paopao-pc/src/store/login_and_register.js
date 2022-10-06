@@ -1,24 +1,34 @@
 //登录和注册使用的仓库
 import {reqRegister,reqLogin} from '@/api'
-import router from '@/router'
 import store from '@/store'
 const state = {
-    userID:'',
+    userID:'',//电话号码
 };
-const mutations = {};
+const mutations = {
+    LOGIN(state,userID){
+        state.userID = userID;
+    }
+};
 const actions = {
     //登陆
-    async Login(userinfo){
-    //let result = await reqRegister(userinfo.userID, userinfo.userPsd);
-    router.push({path:"/home"}) 
-    store.state.islogin = true
+    async Login({commit},info){
+        let result = await reqLogin();
+        if (result.code == 200 && result.data[0].userID == info.phone&&result.data[0].userPsd == info.pass) {
+            commit("LOGIN",info.phone)
+            store.state.islogin = true
+            return 'ok';
+        } else {
+            return Promise.reject(new Error('faile'));
+        }     
     },
     //注册
-    async Register(info){
-        console.log(info.phone,info.pass);
-        let result = await reqLogin(info.phone,info.pass);
-        if (result.code == 200) {
-            alert('注册成功');
+    async Register({commit},info){
+        let data = {
+            userID:info.phone,
+            userPsd:info.pass
+        }
+        let result = await reqRegister(data);
+        if (result.check == "1") {
             return 'ok';       
         } else {
             return Promise.reject(new Error('faile'));

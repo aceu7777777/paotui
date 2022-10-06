@@ -1,8 +1,10 @@
 <template>
   <div>
-    <img class="bigimg" src="@/assets/img/bg.jpg" alt="">
+    <img class="bigimg" src="@/assets/img/bg.jpg" alt="" />
     <div class="box">
-      <el-button size="mini" round @click="gohome"><i class="el-icon-s-home" ></i> 返回首页</el-button>
+      <el-button size="mini" round @click="gohome"
+        ><i class="el-icon-s-home"></i> 返回首页</el-button
+      >
       <div class="box1">
         <h1>欢迎登录</h1>
         <div class="box3">
@@ -13,12 +15,16 @@
             label-width="100px"
             class="demo-ruleForm"
           >
-            <el-form-item label="电话" prop="userID">
-              <el-input v-model="ruleForm.userID" type="userID"></el-input>
+            <el-form-item label="电话" prop="phone">
+              <el-input v-model="ruleForm.phone" type="phone"></el-input>
             </el-form-item>
-            <el-form-item label="密码" prop="userPsd">
-              <el-input type="password" v-model="ruleForm.userPsd" autocomplete="off"></el-input>
-              </el-form-item>
+            <el-form-item label="密码" prop="pass">
+              <el-input
+                type="password"
+                v-model="ruleForm.pass"
+                autocomplete="off"
+              ></el-input>
+            </el-form-item>
             <el-form-item class="btn">
               <el-button
                 type="primary"
@@ -26,9 +32,7 @@
                 class="jianju"
                 >登录</el-button
               >
-              <el-button type="primary" @click="goRegister"
-                >注册</el-button
-              >
+              <el-button type="primary" @click="goRegister">注册</el-button>
             </el-form-item>
           </el-form>
           <!-- 二维码登录 -->
@@ -41,7 +45,7 @@
           >
             <el-button slot="reference">二维码登录</el-button>
           </el-popover> -->
-        </div> 
+        </div>
       </div>
     </div>
   </div>
@@ -52,14 +56,15 @@ export default {
   name: "login",
   data() {
     //手机校验
-    var Phone = (rule,value,callback)=>{
-      let reg = /^[1][3,4,5,6,7,8][0-9]{9}$/
-      if(!reg.test(value)){
-        callback(new Error('手机号码错误'))
-      }else{
-          callback()
+    var Phone = (rule, value, callback) => {
+      // let reg = /^[1][3,4,5,6,7,8][0-9]{9}$/
+      let reg = /^\d{4}$/;
+      if (!reg.test(value)) {
+        callback(new Error("手机号码错误"));
+      } else {
+        callback();
       }
-    }
+    };
     //密码校验
     var validatePass = (rule, value, callback) => {
       if (value === "") {
@@ -71,30 +76,44 @@ export default {
     return {
       //数据
       ruleForm: {
-        userID:"",
-        userPsd: "",
+        phone: "",
+        pass: "",
       },
 
       rules: {
-        userID:[{validator:Phone,trigger:"blur"}],
-        userPsd: [{ validator: validatePass, trigger: "blur" }],
+        phone: [{ validator: Phone, trigger: "blur" }],
+        pass: [{ validator: validatePass, trigger: "blur" }],
       },
     };
   },
 
   methods: {
     //返回首页
-    gohome(){
+    gohome() {
       this.$router.push("/home");
+    },
+    //捕获登录返回的消息
+    async login() {
+      try {
+        await this.$store.dispatch("Login", this.ruleForm);
+        
+        this.$router.push('/home')
+      } catch (error) {
+        console.log(error);
+        this.$message({
+          showClose: true,
+          message: "登录失败:账号或者密码错误",
+          type: "error",
+        });
+      }
     },
     //点击登录
     async submitForm(formName) {
       this.$refs[formName].validate( async (valid) => {
         if (valid) {
-          //检验成功
-          this.$store.dispatch('Login', this.ruleForm);
+          //检验成功之后派发请求
+          this.login();
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
@@ -102,15 +121,15 @@ export default {
     //点击注册
     goRegister() {
       //跳转到注册页面
-      this.$router.push({path:"/register"}) 
+      this.$router.push({ path: "/register" });
     },
   },
 };
 </script>
 
 <style lang="less" scoped>
-.bigimg{
-    width: 100%;
+.bigimg {
+  width: 100%;
 }
 .box {
   width: 500px;

@@ -7,11 +7,14 @@ import 'nprogress/nprogress.css';
 const requests = axios.create({
     baseURL:"/api",//基础路径
     timeout:5000, //超时的时间
-})  
+    
+})
+
 //请求拦截器
 requests.interceptors.request.use((config)=>{
     // 进度条开始
     nprogress.start();
+    // config.data.check = 0;
     return config;
 })
 //响应拦截器
@@ -21,5 +24,8 @@ requests.interceptors.response.use(
         nprogress.done();
         return res.data;
     },
+    ()=>{
+        return Promise.reject(new Error('faile'));
+    }
 );
 export default requests;
