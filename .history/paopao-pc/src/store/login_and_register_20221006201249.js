@@ -1,6 +1,5 @@
 //登录和注册使用的仓库
-import {reqRegister,reqLogin} from '@/api'
-
+import {reqLogin,reqRegister} from '@/api'
 const state = {
     userID:'',//电话号码
 };

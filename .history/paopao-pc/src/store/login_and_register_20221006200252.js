@@ -21,7 +21,8 @@ const actions = {
         }     
     },
     //注册
-    async Register({commit},info){
+    async Register(info){
+        console.log("info);
         let data = {
             userID:info.phone,
             userPsd:info.pass

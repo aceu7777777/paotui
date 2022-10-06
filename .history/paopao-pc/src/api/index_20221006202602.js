@@ -17,7 +17,7 @@ export const reqRegister = (data)=>requests({
     data:{
         data:data,
         check:"0"     
-    }
+        }
 })
 //身份认证接口
 export const reqIdentityVerify = (data)=>requests({

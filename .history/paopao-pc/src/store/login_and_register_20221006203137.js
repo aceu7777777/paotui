@@ -21,11 +21,12 @@ const actions = {
         }     
     },
     //注册
-    async Register({commit},info){
+    async Register({commit{}}info){
         let data = {
             userID:info.phone,
             userPsd:info.pass
         }
+        console.log("注册",data);
         let result = await reqRegister(data);
         if (result.check == "1") {
             return 'ok';       
