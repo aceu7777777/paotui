@@ -22,7 +22,7 @@ const actions = {
             stuSchool:"北京交通大学",
             stuName:"林新宇"
         }
-        let result = await reqIdentityVerify(data)
+        let result = await reqIdentityVerify(data);
         if(result.check ==  1){
             return'ok';
         }else{
