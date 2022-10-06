@@ -16,7 +16,7 @@
             class="demo-ruleForm"
           >
             <el-form-item label="电话" prop="userID">
-              <el-input v-model="ruleForm.phone" type="userID"></el-input>
+              <el-input v-model="ruleForm.userID" type="userID"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="pass">
               <el-input
