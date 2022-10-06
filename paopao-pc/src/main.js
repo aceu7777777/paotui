@@ -7,7 +7,6 @@ import { Button, Menu, MenuItem,Submenu,Empty,Popover,Form,FormItem,Input,Select
 ,Message,MessageBox,Dialog} from 'element-ui';
 //引入elementui样式
 import 'element-ui/lib/theme-chalk/index.css';//引入全部的样式
-Vue.config.productionTip = false;
 //引入按钮
 Vue.use(Button)  
 Vue.component(Message) 
@@ -32,8 +31,13 @@ Vue.use(DatePicker)
 Vue.use(TabPane)
 Vue.use(Table)
 Vue.use(TableColumn)
-Vue.use(Col)
 Vue.use(Dialog)
+Vue.use(Col)
+//在原型方法上挂载elm消息提示
+Vue.prototype.$message = Message;
+Vue.config.productionTip = false;//关闭生产提示
+//引入mockserve.js ---mock的虚拟数据
+import '@/mock/mockServe';
 new Vue({
   router,
   store,

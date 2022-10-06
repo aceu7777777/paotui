@@ -18,6 +18,9 @@
             <el-form-item label="学校" prop="school">
               <el-input v-model="ruleForm.school"></el-input>
             </el-form-item>
+            <el-form-item label="学号" prop="stuid">
+              <el-input v-model="ruleForm.stuid"></el-input>
+            </el-form-item>
             <el-form-item label="身份证号" prop="idcard">
               <el-input v-model="ruleForm.idcard"></el-input>
             </el-form-item>
@@ -40,7 +43,7 @@
 export default {
   name: "realinfo",
   data() {
-    //非空校验
+    //姓名和学校非空校验
     var Name = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入姓名"));
@@ -51,6 +54,13 @@ export default {
     var School = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请输入学校"));
+      } else {
+        callback();
+      }
+    };
+    var StuId = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入学号"));
       } else {
         callback();
       }
@@ -73,9 +83,12 @@ export default {
     //       callback()
     //   }
     // }
+
+
     //身份证号校验
      var IdCard = (rule,value,callback)=>{
       let reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+      // let reg = /^\d{4}$/;
         if(!reg.test(value)){
           callback(new Error('请输入正确的身份证号码'))
         }else{
@@ -86,13 +99,17 @@ export default {
       ruleForm: {
         name:"",
         school:"",
+        stuid:"",//学号
+        idcard:"",//身份证号
         // phone:"",
         // verification_code:"",
-        idcard:"",
+        userId:this.$store.state.login_and_register.userID,//从仓库中取得账号也就是电话号码
+       
       },
       rules: {
         name:[{validator:Name,trigger:"blur"}],
         school:[{validator:School,trigger:"blur"}],
+        stuid:[{validator:StuId,trigger:"blur"}],
         // phone:[{validator:Phone,trigger:"blur"}],
         // verification_code:[{validator:VerificationCode,trigger:"blur"}],
         idcard:[{validator:IdCard,trigger:"blur"}],
@@ -100,12 +117,28 @@ export default {
     };
   },
   methods: {
+     //捕获身份认证返回消息
+    async identity() {
+      try {
+        await this.$store.dispatch('IdentityVerify',this.ruleForm);
+        this.$message({
+          showClose: true,
+          message: '认证成功',
+          type: 'success'
+        });
+      } catch(error) {
+        this.$message({
+          showClose: true,
+          message: '认证失败',
+          type: 'error'
+        });
+      }
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$store.dispatch('IdentityVerify',this.ruleForm)
+          this.identity()
         } else {
-          console.log("error submit!!");
           return false;
         }
       });
