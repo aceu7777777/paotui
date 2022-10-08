@@ -1,0 +1,14 @@
+
+.content{
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/*分割线样式*/
+.divLine{
+ background: #E0E3DA;
+ width: 100%;
+ height: 5rpx;
+}
+

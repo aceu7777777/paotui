@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/mypage/mypage",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/user/user",
+    "pages/wallet/wallet",
+    "pages/credit/credit",
+    "pages/myorder/myorder"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}
