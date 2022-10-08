@@ -25,7 +25,15 @@
     <a href="javascript:;" @click="addaddress">
         <p>添加地址</p>
     </a>
+    <a href="javascript:;" @click="problemFn">
+        <p>常见问题</p>
+    </a>
+    <a href="javascript:;" @click="feedbackFn">
+        <p>意见反馈</p>
+    </a>
     </div>
+
+
 </div>
 </div>
 <!-- tabs -->
@@ -128,6 +136,64 @@
     <el-button type="primary" @click="add">确 定</el-button>
 </div>
 </el-dialog>
+<!-- 意见反馈 -->
+<el-dialog title="意见反馈" :visible.sync="feedback">
+    <el-form >
+        <div class="ui form">
+        <div class="three fields">
+            <div class="field">
+            <label>您的账号</label>
+            <input type="text" placeholder="输入账号">
+            </div>
+            <div class="field">
+            <label>您的学校</label>
+            <input type="text" placeholder="输入学校">
+            </div>
+            <div class="field">
+            <label>您的反馈类型</label>
+            <input type="text" placeholder="输入类型">
+            </div>
+        </div>
+        <div class="field">
+            <label>反馈详细</label>
+            <textarea></textarea>
+        </div>
+        <div class="field">
+            <label>备注</label>
+            <textarea rows="2"></textarea>
+        </div>
+        </div>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+        <el-button @click="feedback = false">取 消</el-button>
+        <el-button type="primary" @click="feedbackdown">确 定</el-button>
+    </div>
+</el-dialog>
+<!-- 问题 -->
+<el-dialog title="常见问题(鼠标悬停获得答案)" :visible.sync="problem" class="problem">
+    <div class="ui styled accordion">
+        <div class="title" title="本平台24小时工作">
+            <i class="dropdown icon"></i>
+            平台服务时间?
+        </div>
+        <div class="title" title="点击首页或者我的订单下单,欢迎使用小程序下单">
+            <i class="dropdown icon" ></i>
+            如何下单?   
+        </div>
+        <div class="title"  title="收费根据消费者自己定,当没有接单可以适当调整">
+            <i class="dropdown icon"></i>
+            如何收费?
+        </div>
+        <div class="title" title="24h内">
+            <i class="dropdown icon"></i>
+            取消订单后什么时候退款?
+        </div>
+        <div class="title" title="客服qq:---------- wx群:----- qq群:--------">
+            <i class="dropdown icon"></i>
+            如何联系客服?
+        </div>
+        </div>
+</el-dialog>
 </div>
 </template>
 
@@ -148,6 +214,9 @@ data() {
             userID:'555',
             userAddress:'',
         },
+        //意见与问题
+        feedback:false,
+        problem:false,
         rules: {
         userAddress: [
         {  required: true, message: '请填写地址', trigger: 'blur' },
@@ -178,6 +247,19 @@ methods:{
             message: '添加地址成功!'
         });
         this.dialogFormVisible = false
+    },
+    feedbackFn(){
+        this.feedback = true
+    },
+    problemFn(){
+        this.problem = true
+    },
+    feedbackdown(){
+        this.feedback = false
+        this.$message({
+            type: 'success',
+            message: '反馈成功,我们会越来越好的!'
+        });
     }
 },
 //判断是否登录
@@ -279,4 +361,8 @@ display: flex;
 .usermoney{
     font-size: 20px;
 }
+.problem{
+    height: 700px;
+}
+
 </style>

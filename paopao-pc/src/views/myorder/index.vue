@@ -4,7 +4,7 @@
 <div class="pad"> 
     <router-link to="/putorder">
     <div class="ui top attached button orange" tabindex="0">
-            <span style="    padding-right: 26px;">新建订单</span>
+            <span style="padding-right: 26px;">新建订单</span>
             <i class="plus icon"></i>
     </div>
     </router-link>
