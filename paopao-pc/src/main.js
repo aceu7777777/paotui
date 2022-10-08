@@ -38,6 +38,9 @@ Vue.prototype.$message = Message;
 Vue.config.productionTip = false;//关闭生产提示
 //引入mockserve.js ---mock的虚拟数据
 import '@/mock/mockServe';
+//引入获取位置信息时候需要的插件并且使用
+import { VueJsonp } from 'vue-jsonp'
+Vue.use(VueJsonp);
 new Vue({
   router,
   store,
