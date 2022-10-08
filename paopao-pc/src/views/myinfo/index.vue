@@ -19,8 +19,11 @@
     <h4>终端练习生</h4>
     </div>
     <div class="item">
-    <a href="javascript:;">
-        <p>会员中心</p>
+    <a href="javascript:;" @click="myaddress">
+        <p>我的地址</p>
+    </a>
+    <a href="javascript:;" @click="addaddress">
+        <p>添加地址</p>
     </a>
     </div>
 </div>
@@ -103,25 +106,78 @@
 </el-tabs>
 </div>
 <el-empty description="您还没有登录,请先去登录吧！" v-if="!islogin"></el-empty>
+<el-dialog title="我的地址" :visible.sync="dialogTableVisible" class="dialog">
+    <div class="ui list">
+    <div class="item" v-for="item in myaddressdata" :key="item.address">
+        <i class="map marker icon"></i>
+        <div class="content">
+        <a class="header">{{item.address}}</a>
+        </div>
+    </div>
+    </div>
+</el-dialog>
+<!-- 添加地址 -->
+<el-dialog title="添加地址" :visible.sync="dialogFormVisible">
+<el-form :model="ruleForm">
+    <el-form-item label="添加您的常用地址" prop="userAddress">
+        <el-input type="textarea" v-model="ruleForm.userAddress"></el-input>
+    </el-form-item>
+</el-form>
+<div slot="footer" class="dialog-footer">
+    <el-button @click="dialogFormVisible = false">取 消</el-button>
+    <el-button type="primary" @click="add">确 定</el-button>
+</div>
+</el-dialog>
 </div>
 </template>
 
 <script>
 //测试查询个人信息
-import {MyinfoAPI} from '@/api/myinfo.js'
+import { MyinfoAPI, AlladdressAPI,AddaddressAPI } from '@/api/myinfo.js'
 export default {
 data() {
     return {
         //个人信息
         myinfo:{},
-
+        //表格
+        dialogTableVisible:false,
+        //表单
+        dialogFormVisible:false,
+        myaddressdata:[],
+        ruleForm:{
+            userID:'555',
+            userAddress:'',
+        },
+        rules: {
+        userAddress: [
+        {  required: true, message: '请填写地址', trigger: 'blur' },
+        ],
+        }
     }
 },
 methods:{
-    async user(){
+    async user() {
         const res = await MyinfoAPI(19990523) 
         this.myinfo = res.data
-        console.log(this.myinfo);
+        //console.log(this.myinfo);
+    },
+    async myaddress() {
+        this.dialogTableVisible = true
+        const res = await AlladdressAPI(555) 
+        this.myaddressdata = res.data
+        //console.log(this.myaddressdata);
+    },
+    addaddress() {
+        this.dialogFormVisible = true
+    },
+    async add() {
+        const res = await AddaddressAPI(this.ruleForm)
+        console.log(res);
+        this.$message({
+            type: 'success',
+            message: '添加地址成功!'
+        });
+        this.dialogFormVisible = false
     }
 },
 //判断是否登录
@@ -132,6 +188,8 @@ computed:{
     realinfo(){
         return this.$store.state.realinfo
     }
+    //发请求的数据
+
 },
 created() {
     this.user()

@@ -20,6 +20,7 @@
         </button>
     </div>
     <div class="user" v-else>
+        {{ time }}!!,
         <a class="ui image label">
         <img src="@/assets/img/user.png">
         终端练习生
@@ -33,6 +34,7 @@
 </template>
 
 <script>
+
 export default {
     data() {
     return {
@@ -72,6 +74,18 @@ export default {
     islogin(){
         return this.$store.state.islogin
     },
+    time(){
+        let nowtime = new Date().getHours()
+        let welcome = ''
+        if(nowtime >=6 && nowtime <= 12){
+            welcome = '上午好'
+        }else if(nowtime >= 12 && nowtime <= 20){
+            welcome = '下午好'
+        }else{
+            welcome = '晚上好'
+        }
+        return welcome
+    }
 }
 
 }

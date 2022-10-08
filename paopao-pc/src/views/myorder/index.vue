@@ -84,6 +84,8 @@ import { MyorderAPI } from '@/api/myorder.js'
 export default {
 data(){
     return {
+        //我的路由
+        route:'/myorder',
         //订单列表
         orderList:[],
         //控制对话框 有的时候需要修改金额和备注
@@ -187,7 +189,20 @@ created(){
     this.allorder()
     }
 },
-
+//为了解决添加订单数据不更新的情况 用这个方法先
+//检测到路径改变 且改变值等于我的订单 就再次请求数据 this.allorder()
+watch:{
+    $route:{
+        handler(to){
+            if(to.path === '/myorder'){
+                if(this.islogin){
+                this.allorder()
+                }
+            }
+        },
+        immediate:true,
+    }
+},
 //判断是否登录
 computed:{
     islogin(){

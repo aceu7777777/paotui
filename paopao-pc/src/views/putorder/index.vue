@@ -13,7 +13,9 @@
     </el-form-item>
     <el-form-item label="收货地址" prop="orderAddress">
         <el-input v-model="ruleForm.orderAddress"></el-input>
+        <a @click="pickaddress">使用我的地址</a>
     </el-form-item>
+    
     <el-form-item label="跑腿类型" prop="orderType">
     <el-select v-model="ruleForm.orderType" placeholder="请选择跑腿类型">
         <el-option label="代取快递" value="1"></el-option>
@@ -37,16 +39,26 @@
     </el-form-item>
     <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">提交订单</el-button>
-        <el-button @click="resetForm">内容重置</el-button>
     </el-form-item>
     </el-form>
     </div>
     <el-empty description="您还没有登录,登录后再来吧！" v-if="!islogin"></el-empty>
+    <el-dialog title="选择地址(可以去个人中心添加您的常用地址)" :visible.sync="isshow" class="dialog">
+    <div class="ui list">
+    <div class="item" v-for="item in myaddressdata" :key="item.address">
+        <i class="map marker icon"></i>
+        <div class="content">
+        <a class="header" @click="define(item)">{{item.address}}</a>
+        </div>
+    </div>
+    </div>
+</el-dialog>
 </div>
 </template>
 
 <script>
 import { PutorderAPI } from '@/api/putorder.js' 
+import { AlladdressAPI } from '@/api/myinfo.js'
 import dayjs from 'dayjs'
 export default {
     data() {
@@ -66,6 +78,10 @@ export default {
         clientID:'19990523',
 
 
+        //控制选择地址的弹出层
+        isshow:false,
+        //我的地址
+        myaddressdata:[],
         //下单表单的验证规则
         rules: {
             runaddress: [
@@ -95,6 +111,7 @@ export default {
             ],
         }
         };
+
     },
     //发送请求需要的数据
     //计算属性算出正确格式的orderReserveTime        当前时间 dayjs(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss')
@@ -131,9 +148,15 @@ export default {
             }
         });
     },
-        resetForm() {
-
-        }
+    async pickaddress(){
+        this.isshow = true
+        const res = await AlladdressAPI(555) 
+        this.myaddressdata = res.data
+    },
+    define(item){
+        this.ruleForm.orderAddress = item.address
+        this.isshow = false
+    }
 }
 }
 </script>
