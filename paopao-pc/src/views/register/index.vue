@@ -1,11 +1,8 @@
 <template>
   <div>
     <img class="bigimg" src="@/assets/img/bg.jpg" alt="" />
+    <div class="home"><el-button size="mini" round @click="gohome"><i class="el-icon-s-home"></i> 返回首页</el-button></div>
     <div class="box">
-      <el-button size="mini" round @click="gohome"
-        ><i class="el-icon-s-home"></i> 返回首页</el-button
-      >
-
       <div class="box1">
         <h1>欢迎注册</h1>
         <div class="box3">
@@ -154,6 +151,11 @@ export default {
 <style lang="less" scoped>
 .bigimg {
   width: 100%;
+}
+.home{
+  top: 0;
+  position:absolute;
+  z-index: 999;
 }
 .box {
   width: 500px;
