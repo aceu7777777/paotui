@@ -55,8 +55,8 @@ export default {
   data() {
     //手机校验
     var Phone = (rule, value, callback) => {
-      // let reg = /^[1][3,4,5,6,7,8][0-9]{9}$/
-      let reg = /^\d{4}$/;
+      let reg = /^[1][3,4,5,6,7,8][0-9]{8}$/
+      // let reg = /^\d{4}$/;
       if (!reg.test(value)) {
         callback(new Error("请输入正确的手机号码"));
       } else {
